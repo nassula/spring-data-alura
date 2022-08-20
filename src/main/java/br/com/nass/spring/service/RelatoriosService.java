@@ -8,6 +8,7 @@ import java.util.Scanner;
 import org.springframework.stereotype.Service;
 
 import br.com.nass.spring.orm.Funcionario;
+import br.com.nass.spring.orm.FuncionarioProjecao;
 import br.com.nass.spring.repository.FuncionarioRepository;
 
 @Service
@@ -29,6 +30,7 @@ public class RelatoriosService {
             System.out.println("1 - Busca funcionario nome");
             System.out.println("2 - Busca funcionario nome, data contratacao e salario maior");
             System.out.println("3 - Busca funcionario data contratacao");
+            System.out.println("4 - Pesquisa funcionario salario");
 
             int action = scanner.nextInt();
 
@@ -41,6 +43,9 @@ public class RelatoriosService {
                     break;
                 case 3:
                     buscaFuncionarioDataContratacao(scanner);
+                    break;
+                case 4:
+                    pesquisafuncionarioSalario();
                     break;
                 default:
                     system = false;
@@ -80,6 +85,12 @@ public class RelatoriosService {
 
         List<Funcionario> list = funcionarioRepository.findDataContratacaoMaior(localDate);
         list.forEach(System.out::println);
+    }
+
+    private void pesquisafuncionarioSalario() {
+        List<FuncionarioProjecao> list = funcionarioRepository.findFuncionarioSalario();
+        list.forEach(f -> System.out.println("Funcionario: id: " + f.getId()
+                + " | nome: " + f.getNome() + " | salario: " + f.getSalario()));
     }
 
 }

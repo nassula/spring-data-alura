@@ -2,15 +2,11 @@ package br.com.nass.spring;
 
 import java.util.Scanner;
 
+import br.com.nass.spring.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import br.com.nass.spring.service.CrudCargoService;
-import br.com.nass.spring.service.CrudFuncionarioService;
-import br.com.nass.spring.service.CrudUnidadeTrabalhoService;
-import br.com.nass.spring.service.RelatoriosService;
 
 @EnableJpaRepositories
 @SpringBootApplication
@@ -26,14 +22,18 @@ public class SpringDataAluraApplication implements CommandLineRunner {
 
 	private final CrudUnidadeTrabalhoService unidadeTrabalhoService;
 
+	private final RelatorioFuncionarioDinamico relatorioFuncionarioDinamico;
+
 	public SpringDataAluraApplication(CrudCargoService cargoService,
 								 RelatoriosService relatoriosService,
 								 CrudFuncionarioService funcionarioService,
-								 CrudUnidadeTrabalhoService unidadeTrabalhoService) {
+								 CrudUnidadeTrabalhoService unidadeTrabalhoService,
+								 RelatorioFuncionarioDinamico relatorioFuncionarioDinamico) {
 		this.cargoService = cargoService;
 		this.relatoriosService = relatoriosService;
 		this.funcionarioService = funcionarioService;
 		this.unidadeTrabalhoService = unidadeTrabalhoService;
+		this.relatorioFuncionarioDinamico = relatorioFuncionarioDinamico;
 	}
 
 	public static void main(String[] args) {
@@ -51,6 +51,7 @@ public class SpringDataAluraApplication implements CommandLineRunner {
 			System.out.println("2 - Funcionario");
 			System.out.println("3 - Unidade");
 			System.out.println("4 - Relatorios");
+			System.out.println("5 - Relatorio dinamico");
 
 
 			Integer function = scanner.nextInt();
@@ -67,6 +68,9 @@ public class SpringDataAluraApplication implements CommandLineRunner {
 					break;
 				case 4:
 					relatoriosService.inicial(scanner);
+					break;
+				case 5:
+					relatorioFuncionarioDinamico.inicial(scanner);
 					break;
 				default:
 					System.out.println("Finalizando");
